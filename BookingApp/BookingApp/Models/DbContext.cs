@@ -8,17 +8,19 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BookingApp.Models
 {
-    public class BAContext: IdentityDbContext<BAIdentityUser>
+    public class DBContext : DbContext 
     {   
-        public virtual DbSet<AppUser> AppUsers { get; set; }
+        public  DbSet<AppUser> AppUsers { get; set; }
 
-        public BAContext() : base("name=BADB")
+        public  DbSet<User> Users { get; set; }
+
+        public DBContext() : base("name=DdName")
         {            
         }
 
-        public static BAContext Create()
+        public static DBContext Create()
         {
-            return new BAContext();
+            return new DBContext();
         }
     }
 }

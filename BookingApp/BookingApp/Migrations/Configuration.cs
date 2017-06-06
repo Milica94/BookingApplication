@@ -9,14 +9,14 @@ namespace BookingApp.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<BookingApp.Models.BAContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<BookingApp.Models.DBContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(BookingApp.Models.BAContext context)
+        protected override void Seed(BookingApp.Models.DBContext context)
         {
             //  This method will be called after migrating to the latest version.
 
@@ -31,42 +31,47 @@ namespace BookingApp.Migrations
             //    );
             //
 
-            if (!context.Roles.Any(r => r.Name == "Admin"))
-            {
-                var store = new RoleStore<IdentityRole>(context);
-                var manager = new RoleManager<IdentityRole>(store);
-                var role = new IdentityRole { Name = "Admin" };
+            /*   if (!context.Roles.Any(r => r.Name == "Admin"))
+               {
+                   var store = new RoleStore<IdentityRole>(context);
+                   var manager = new RoleManager<IdentityRole>(store);
+                   var role = new IdentityRole { Name = "Admin" };
 
-                manager.Create(role);
-            }
+                   manager.Create(role);
+               }
 
-            if (!context.Roles.Any(r => r.Name == "Manager"))
-            {
-                var store = new RoleStore<IdentityRole>(context);
-                var manager = new RoleManager<IdentityRole>(store);
-                var role = new IdentityRole { Name = "Manager" };
+               if (!context.Roles.Any(r => r.Name == "Manager"))
+               {
+                   var store = new RoleStore<IdentityRole>(context);
+                   var manager = new RoleManager<IdentityRole>(store);
+                   var role = new IdentityRole { Name = "Manager" };
 
-                manager.Create(role);
-            }
+                   manager.Create(role);
+               }
 
-            if (!context.Roles.Any(r => r.Name == "AppUser"))
-            {
-                var store = new RoleStore<IdentityRole>(context);
-                var manager = new RoleManager<IdentityRole>(store);
-                var role = new IdentityRole { Name = "AppUser" };
+               if (!context.Roles.Any(r => r.Name == "AppUser"))
+               {
+                   var store = new RoleStore<IdentityRole>(context);
+                   var manager = new RoleManager<IdentityRole>(store);
+                   var role = new IdentityRole { Name = "AppUser" };
 
-                manager.Create(role);
-            }
+                   manager.Create(role);
+               }
 
-            var userStore = new UserStore<BAIdentityUser>(context);
-            var userManager = new UserManager<BAIdentityUser>(userStore);
+               var userStore = new UserStore<BAIdentityUser>(context);
+               var userManager = new UserManager<BAIdentityUser>(userStore);
 
-            if (!context.Users.Any(u => u.UserName == "admin"))
-            {
-                var user = new BAIdentityUser() { Id = "admin", UserName = "admin", Email = "admin@yahoo.com", PasswordHash = BAIdentityUser.HashPassword("admin")};
-                userManager.Create(user);
-                userManager.AddToRole(user.Id, "Admin");
-            }
+               if (!context.Users.Any(u => u.UserName == "admin"))
+               {
+                   var user = new BAIdentityUser() { Id = "admin", UserName = "admin", Email = "admin@yahoo.com", PasswordHash = BAIdentityUser.HashPassword("admin")};
+                   userManager.Create(user);
+                   userManager.AddToRole(user.Id, "Admin");
+               } */
+
+            context.AppUsers.AddOrUpdate(
+                p => p.FullName,
+                new AppUser() { FullName = "Nikola0" }
+                );
         }
     }
 }

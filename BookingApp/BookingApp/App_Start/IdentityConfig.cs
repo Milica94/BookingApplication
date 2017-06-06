@@ -18,7 +18,7 @@ namespace BookingApp
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new UserStore<BAIdentityUser>(context.Get<BAContext>()));
+            var manager = new ApplicationUserManager(new UserStore<BAIdentityUser>(context.Get<DBContext>()));
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<BAIdentityUser>(manager)
             {
