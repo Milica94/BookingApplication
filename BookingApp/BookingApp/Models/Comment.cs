@@ -9,8 +9,8 @@ namespace BookingApp.Models
     {
 
         public int CommentId { get; set; }
-        private int grade { get; set; }
-        private string text { get; set; }
+        public int grade { get; set; }
+        public string text { get; set; }
         public List<User> l_User { get; set; }
         public List<Accommodation> l_Accommodation;
         //
