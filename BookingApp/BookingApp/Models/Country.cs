@@ -9,9 +9,9 @@ namespace BookingApp.Models
     {
 
         public int CountryId { get; set; }
-        private int code { get; set; }
+        public int code { get; set; }
 
-        private string name;
+        public string name;
         public List<Region> l_Region { get; set; }
         //
 
