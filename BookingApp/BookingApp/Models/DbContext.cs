@@ -10,9 +10,7 @@ namespace BookingApp.Models
 {
     public class DBContext : DbContext 
     {   
-        public  DbSet<AppUser> AppUsers { get; set; }
-
-        public  DbSet<User> Users { get; set; }
+       
 
         public DBContext() : base("name=DdName")
         {            
@@ -22,5 +20,21 @@ namespace BookingApp.Models
         {
             return new DBContext();
         }
+        public System.Data.Entity.DbSet<BookingApp.Models.Accommodation> Accommodations { get; set; }
+
+        public System.Data.Entity.DbSet<BookingApp.Models.AccommodationType> AccommodationTypes { get; set; }
+
+        public System.Data.Entity.DbSet<BookingApp.Models.Place> Places { get; set; }
+
+        public System.Data.Entity.DbSet<BookingApp.Models.Comment> Comments { get; set; }
+
+        public System.Data.Entity.DbSet<BookingApp.Models.Country> Countries { get; set; }
+
+        public System.Data.Entity.DbSet<BookingApp.Models.Region> Regions { get; set; }
+
+        public System.Data.Entity.DbSet<BookingApp.Models.Room> Rooms { get; set; }
+
+        public System.Data.Entity.DbSet<BookingApp.Models.RoomReservations> RoomReservations { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
