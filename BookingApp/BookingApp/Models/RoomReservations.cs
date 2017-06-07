@@ -11,9 +11,9 @@ namespace BookingApp.Models
         //
         public int RoomReservationsId { get; set; }
 
-        private string endDate { get; set; }
-        private string startDate { get; set; }
-        private Timer timestamp { get; set; }
+        public string endDate { get; set; }
+        public string startDate { get; set; }
+        public Timer timestamp { get; set; }
         public List<User> l_User { get; set; }
         public List<Room> l_Room { get; set; }
         // 1
