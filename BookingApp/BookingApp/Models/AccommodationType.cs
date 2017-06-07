@@ -9,7 +9,7 @@ namespace BookingApp.Models
     {
 
         public int AccommodationTypeId { get; set; }
-        private string name { get; set; }
+        public string name { get; set; }
         public List<Accommodation> l_Accommodation { get; set; }
         //
 
