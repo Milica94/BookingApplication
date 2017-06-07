@@ -9,15 +9,15 @@ namespace BookingApp.Models
     {
 
         public int AccommodationId { get; set; }
-        private string address { get; set; }
-        private bool approved { get; set; }
-        private float averageGrade { get; set; }
-        private string description { get; set; }
+        public string address { get; set; }
+        public bool approved { get; set; }
+        public float averageGrade { get; set; }
+        public string description { get; set; }
 
-        private string imageURL { get; set; }
-        private double latitude { get; set; }
-        private double longitude { get; set; }
-        private string name { get; set; }
+        public string imageURL { get; set; }
+        public double latitude { get; set; }
+        public double longitude { get; set; }
+        public string name { get; set; }
         public List<Comment> l_Comment { get; set; }
         public List<Room> l_Room { get; set; }
         // 1
