@@ -8,8 +8,8 @@ namespace BookingApp.Models
     public class Place
     {
 
-        private int PlaceId { get; set; }
-        private string name { get; set; }
+        public int PlaceId { get; set; }
+        public string name { get; set; }
         public List<Accommodation> l_Accommodation { get; set; }
         //
         public int RegionId { get; set; }
