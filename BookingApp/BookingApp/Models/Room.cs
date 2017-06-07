@@ -9,11 +9,11 @@ namespace BookingApp.Models
     {
 
         public int RoomId { get; set; }
-        private int bedCount { get; set; }
-        private string description { get; set; }
+        public int bedCount { get; set; }
+        public string description { get; set; }
 
-        private int pricePerNight { get; set; }
-        private int roomNumber { get; set; }
+        public int pricePerNight { get; set; }
+        public int roomNumber { get; set; }
         public List<RoomReservations> l_RoomReservations { get; set; }
         //
         public int AccommodationId { get; set; }
