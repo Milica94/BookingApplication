@@ -9,7 +9,7 @@ namespace BookingApp.Models
     {
 
         public int RegionId { get; set; }
-        private string name { get; set; }
+        public string name { get; set; }
         public List<Place> l_Place { get; set; }
         // 
         public int CountryId { get; set; }
