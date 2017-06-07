@@ -68,10 +68,10 @@ namespace BookingApp.Migrations
                    userManager.AddToRole(user.Id, "Admin");
                } */
 
-            context.AppUsers.AddOrUpdate(
+           /* context.AppUsers.AddOrUpdate(
                 p => p.FullName,
                 new AppUser() { FullName = "Nikola0" }
-                );
+                );*/
         }
     }
 }

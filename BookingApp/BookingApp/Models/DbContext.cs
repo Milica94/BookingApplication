@@ -36,5 +36,7 @@ namespace BookingApp.Models
 
         public System.Data.Entity.DbSet<BookingApp.Models.RoomReservations> RoomReservations { get; set; }
         public DbSet<User> Users { get; set; }
+
+        public System.Data.Entity.DbSet<BookingApp.Models.AppUser> AppUsers { get; set; }
     }
 }
