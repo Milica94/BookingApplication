@@ -262,9 +262,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706061137578_nid.cs" />
-    <Compile Include="Migrations\201706061137578_nid.Designer.cs">
-      <DependentUpon>201706061137578_nid.cs</DependentUpon>
+    <Compile Include="Migrations\201706121418383_mig.cs" />
+    <Compile Include="Migrations\201706121418383_mig.Designer.cs">
+      <DependentUpon>201706121418383_mig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706121645108_AddingConstraints.cs" />
+    <Compile Include="Migrations\201706121645108_AddingConstraints.Designer.cs">
+      <DependentUpon>201706121645108_AddingConstraints.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Accommodation.cs" />
@@ -332,7 +336,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -360,8 +366,11 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706061137578_nid.resx">
-      <DependentUpon>201706061137578_nid.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706121418383_mig.resx">
+      <DependentUpon>201706121418383_mig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706121645108_AddingConstraints.resx">
+      <DependentUpon>201706121645108_AddingConstraints.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
