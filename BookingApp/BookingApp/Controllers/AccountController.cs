@@ -25,7 +25,10 @@ namespace BookingApp.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
+        private AppUser app_User1 = new AppUser();
 
+
+        private DBContext db = new DBContext();
         public AccountController()
         {
         }
@@ -327,15 +330,39 @@ namespace BookingApp.Controllers
             {
                 return BadRequest(ModelState);
             }
+         
 
-            var user = new BAIdentityUser() { UserName = model.Email, Email = model.Email };
+                try
+                {
+                    app_User1 = new AppUser() { UserName = model.UserName };
+                    db.AppUsers.Add(app_User1);
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
 
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+                }
 
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
+            var userStore = new UserStore<BAIdentityUser>(db);
+            var userManager = new UserManager<BAIdentityUser>(userStore);
+
+            BAIdentityUser user = new BAIdentityUser();
+            user.UserName = model.UserName;
+            user.Email = model.Email;
+            user.PasswordHash = BAIdentityUser.HashPassword(model.Password);
+            user.AppUserId = app_User1.Id;
+            //{
+            //    UserName = model.UserName,
+            //    Email = model.Email,
+            //    PasswordHash = BAIdentityUser.HashPassword(model.Password),
+            //    AppUserId = app_User1.Id
+            //};
+
+           
+                userManager.Create(user);
+                userManager.AddToRole(user.Id, model.Role);
+           
+
 
             return Ok();
         }

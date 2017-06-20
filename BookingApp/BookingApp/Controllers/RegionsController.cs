@@ -12,18 +12,43 @@ using BookingApp.Models;
 
 namespace BookingApp.Controllers
 {
+    [RoutePrefix("region")]
+
     public class RegionsController : ApiController
     {
         private DBContext db = new DBContext();
 
-        // GET: api/Regions
+        #region CreateRegion
+        [HttpPost]
+       [Route("AddRegion")]
+        public IHttpActionResult PostRegion(Region region)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            db.Regions.Add(region);
+            db.SaveChanges();
+
+            return Ok();
+            //return CreatedAtRoute("DefaultApi", new { id = region.RegionId }, region);
+        }
+        #endregion
+
+        #region ReadRegions
+        [HttpGet]
+        [Route("AllRegions")]
         public IQueryable<Region> GetRegions()
         {
             return db.Regions;
         }
+        #endregion
 
+        #region ReadRegion
         // GET: api/Regions/5
-        [ResponseType(typeof(Region))]
+        [HttpGet]
+        [Route("GetRegion/{id}")]
         public IHttpActionResult GetRegion(int id)
         {
             Region region = db.Regions.Find(id);
@@ -34,9 +59,12 @@ namespace BookingApp.Controllers
 
             return Ok(region);
         }
+        #endregion
 
-        // PUT: api/Regions/5
-        [ResponseType(typeof(void))]
+        #region UpdateRegion
+
+        [HttpPut]
+        [Route("ChangeRegion/{id}")]
         public IHttpActionResult PutRegion(int id, Region region)
         {
             if (!ModelState.IsValid)
@@ -69,24 +97,12 @@ namespace BookingApp.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+        #endregion
 
-        // POST: api/Regions
-        [ResponseType(typeof(Region))]
-        public IHttpActionResult PostRegion(Region region)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Regions.Add(region);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = region.RegionId }, region);
-        }
-
+        #region DeleteRegion
         // DELETE: api/Regions/5
-        [ResponseType(typeof(Region))]
+        [HttpDelete]
+        [Route("DeleteRegion/{id}")]
         public IHttpActionResult DeleteRegion(int id)
         {
             Region region = db.Regions.Find(id);
@@ -100,7 +116,7 @@ namespace BookingApp.Controllers
 
             return Ok(region);
         }
-
+        #endregion
         protected override void Dispose(bool disposing)
         {
             if (disposing)

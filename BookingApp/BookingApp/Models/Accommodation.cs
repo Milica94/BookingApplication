@@ -44,10 +44,10 @@ namespace BookingApp.Models
         public int AccommodationTypeId { get; set; }
         public AccommodationType AccommodationType { get; set; }
         
-        [Required,ForeignKey("User")]
-        public int UserId { get; set; }
+        [Required,ForeignKey("AppUser")]
+        public int AppUserId { get; set; }
 
-        public AppUser User { get; set; }
+        public AppUser AppUser { get; set; }
 
         public Accommodation()
         {

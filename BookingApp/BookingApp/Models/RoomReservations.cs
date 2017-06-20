@@ -21,7 +21,7 @@ namespace BookingApp.Models
 
       //  [Timestamp]
         public DateTime timestamp { get; set; }
-        public IList<User> l_User { get; set; }
+        public IList<AppUser> l_User { get; set; }
         public IList<Room> l_Room { get; set; }
         // 1
         [Required,ForeignKey("Room")]
@@ -30,10 +30,10 @@ namespace BookingApp.Models
         public Room Room { get; set; }
         // 2
 
-        [Required,ForeignKey("User")]
-        public int UserId { get; set; }
+        [Required,ForeignKey("AppUser")]
+        public int AppUserId { get; set; }
 
-        public AppUser  User { get; set; }
+        public AppUser AppUser { get; set; }
 
         public RoomReservations()
         {

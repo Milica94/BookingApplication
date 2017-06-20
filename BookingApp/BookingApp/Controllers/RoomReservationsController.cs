@@ -12,31 +12,15 @@ using BookingApp.Models;
 
 namespace BookingApp.Controllers
 {
+    [RoutePrefix("api/RoomReservations")]
+
     public class RoomReservationsController : ApiController
     {
         private DBContext db = new DBContext();
 
-        // GET: api/RoomReservations
-        public IQueryable<RoomReservations> GetRoomReservations()
-        {
-            return db.RoomReservations;
-        }
-
-        // GET: api/RoomReservations/5
-        [ResponseType(typeof(RoomReservations))]
-        public IHttpActionResult GetRoomReservations(int id)
-        {
-            RoomReservations roomReservations = db.RoomReservations.Find(id);
-            if (roomReservations == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(roomReservations);
-        }
-
-        // PUT: api/RoomReservations/5
-        [ResponseType(typeof(void))]
+        #region UpdateRoomReservation
+        [HttpPut]
+        [Route("Change/{id}")]
         public IHttpActionResult PutRoomReservations(int id, RoomReservations roomReservations)
         {
             if (!ModelState.IsValid)
@@ -69,9 +53,11 @@ namespace BookingApp.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+        #endregion
 
-        // POST: api/RoomReservations
-        [ResponseType(typeof(RoomReservations))]
+        #region CreateRoomReservation
+        [HttpPost]
+        [Route("Create")]
         public IHttpActionResult PostRoomReservations(RoomReservations roomReservations)
         {
             if (!ModelState.IsValid)
@@ -84,9 +70,39 @@ namespace BookingApp.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = roomReservations.RoomReservationsId }, roomReservations);
         }
+        #endregion
 
-        // DELETE: api/RoomReservations/5
-        [ResponseType(typeof(RoomReservations))]
+        #region ReadAll
+        [HttpGet]
+        [Route("ReadAll")]
+        // GET: api/RoomReservations
+
+        public IQueryable<RoomReservations> GetRoomReservations()
+        {
+            return db.RoomReservations;
+        }
+        #endregion
+
+        #region ReadROOMReservation
+            [HttpGet]
+            [Route("Read/{id}")]
+        public IHttpActionResult GetRoomReservations(int id)
+        {
+            RoomReservations roomReservations = db.RoomReservations.Find(id);
+            if (roomReservations == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(roomReservations);
+        }
+        #endregion
+
+   
+        #region DeleteRoomReservations
+         
+        [HttpDelete]
+        [Route("Delete/{id}")]
         public IHttpActionResult DeleteRoomReservations(int id)
         {
             RoomReservations roomReservations = db.RoomReservations.Find(id);
@@ -100,6 +116,7 @@ namespace BookingApp.Controllers
 
             return Ok(roomReservations);
         }
+        #endregion
 
         protected override void Dispose(bool disposing)
         {

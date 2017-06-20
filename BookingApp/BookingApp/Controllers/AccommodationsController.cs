@@ -12,21 +12,31 @@ using BookingApp.Models;
 
 namespace BookingApp.Controllers
 {
+    
+
     public class AccommodationsController : ApiController
     {
         private DBContext db = new DBContext();
-
-        // GET: api/Accommodations
-        public IQueryable<Accommodation> GetAccommodations()
+    
+       
+        private bool IfExist(int id)
         {
-            return db.Accommodations;
+            return db.Accommodation.Count(type => type.AccommodationId == id) > 0;
         }
 
-        // GET: api/Accommodations/5
-        [ResponseType(typeof(Accommodation))]
+
+        [HttpGet]
+        [Route("ReadAll")]
+        public IQueryable<Accommodation> GetAccommodations()
+        {
+            return db.Accommodation;
+        }
+
+        [HttpGet]
+        [Route("Read/{id}")]
         public IHttpActionResult GetAccommodation(int id)
         {
-            Accommodation accommodation = db.Accommodations.Find(id);
+            Accommodation accommodation = db.Accommodation.Find(id);
             if (accommodation == null)
             {
                 return NotFound();
@@ -35,8 +45,8 @@ namespace BookingApp.Controllers
             return Ok(accommodation);
         }
 
-        // PUT: api/Accommodations/5
-        [ResponseType(typeof(void))]
+        [HttpGet]
+        [Route("Change/{id}")]
         public IHttpActionResult PutAccommodation(int id, Accommodation accommodation)
         {
             if (!ModelState.IsValid)
@@ -70,8 +80,8 @@ namespace BookingApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Accommodations
-        [ResponseType(typeof(Accommodation))]
+        [HttpPost]
+        [Route("Create")]
         public IHttpActionResult PostAccommodation(Accommodation accommodation)
         {
             if (!ModelState.IsValid)
@@ -79,23 +89,23 @@ namespace BookingApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Accommodations.Add(accommodation);
+            db.Accommodation.Add(accommodation);
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = accommodation.AccommodationId }, accommodation);
         }
 
-        // DELETE: api/Accommodations/5
-        [ResponseType(typeof(Accommodation))]
+        [HttpDelete]
+        [Route("Delete/{id}")]
         public IHttpActionResult DeleteAccommodation(int id)
         {
-            Accommodation accommodation = db.Accommodations.Find(id);
+            Accommodation accommodation = db.Accommodation.Find(id);
             if (accommodation == null)
             {
                 return NotFound();
             }
 
-            db.Accommodations.Remove(accommodation);
+            db.Accommodation.Remove(accommodation);
             db.SaveChanges();
 
             return Ok(accommodation);
@@ -112,7 +122,7 @@ namespace BookingApp.Controllers
 
         private bool AccommodationExists(int id)
         {
-            return db.Accommodations.Count(e => e.AccommodationId == id) > 0;
+            return db.Accommodation.Count(e => e.AccommodationId == id) > 0;
         }
     }
 }

@@ -12,18 +12,24 @@ using BookingApp.Models;
 
 namespace BookingApp.Controllers
 {
+    [RoutePrefix("api/Room")]
+
     public class RoomsController : ApiController
     {
         private DBContext db = new DBContext();
 
-        // GET: api/Rooms
+        #region ReadAllRooms
+        [HttpGet]
+        [Route("ReadAll")]
         public IQueryable<Room> GetRooms()
         {
             return db.Rooms;
         }
+        #endregion
 
-        // GET: api/Rooms/5
-        [ResponseType(typeof(Room))]
+        #region ReadRoom
+        [HttpGet]
+        [Route("Read/{id}")]
         public IHttpActionResult GetRoom(int id)
         {
             Room room = db.Rooms.Find(id);
@@ -34,9 +40,12 @@ namespace BookingApp.Controllers
 
             return Ok(room);
         }
+        #endregion
 
+        #region UpdateROOM
         // PUT: api/Rooms/5
-        [ResponseType(typeof(void))]
+        [HttpPut]
+        [Route("ChangeRoom/{id}")]
         public IHttpActionResult PutRoom(int id, Room room)
         {
             if (!ModelState.IsValid)
@@ -69,9 +78,12 @@ namespace BookingApp.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+        #endregion
 
+        #region CreateRoom
         // POST: api/Rooms
-        [ResponseType(typeof(Room))]
+        [HttpPost]
+        [Route("Create")]
         public IHttpActionResult PostRoom(Room room)
         {
             if (!ModelState.IsValid)
@@ -85,8 +97,11 @@ namespace BookingApp.Controllers
             return CreatedAtRoute("DefaultApi", new { id = room.RoomId }, room);
         }
 
-        // DELETE: api/Rooms/5
-        [ResponseType(typeof(Room))]
+        #endregion
+
+        #region DeleteRoom
+        [HttpDelete]
+        [Route("Delete/{id}")]
         public IHttpActionResult DeleteRoom(int id)
         {
             Room room = db.Rooms.Find(id);
@@ -100,6 +115,7 @@ namespace BookingApp.Controllers
 
             return Ok(room);
         }
+        #endregion
 
         protected override void Dispose(bool disposing)
         {

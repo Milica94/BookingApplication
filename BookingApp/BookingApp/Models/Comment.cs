@@ -17,13 +17,13 @@ namespace BookingApp.Models
 
         [Required, StringLength(500)]
         public string text { get; set; }
-        public List<User> l_User { get; set; }
+        public List<AppUser> l_User { get; set; }
 
         public List<Accommodation> l_Accommodation;
         //
-        [ForeignKey("User")]
-        public int UserId { get; set; }
-        public AppUser User { get; set; }
+        [ForeignKey("AppUser")]
+        public int AppUserId { get; set; }
+        public AppUser AppUser { get; set; }
 
         [ForeignKey("Accomodation")]
         public int AccommodationId { get; set; }

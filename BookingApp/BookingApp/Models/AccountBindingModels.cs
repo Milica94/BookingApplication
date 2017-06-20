@@ -34,12 +34,28 @@ namespace BookingApp.Models
 
     public class RegisterBindingModel
     {
+
+        [Required]  
+       // [StringLength(50,ErrorMessage = "Korisnicko ime moze imati najvise 50 karaktera.", MinimumLength =8)]
+        public string  UserName { get; set; }
+
+        [Required]
+        public string Role { get; set; }
+
+        //[Required]
+        //[StringLength(20)]
+        //public string Ime { get; set; }
+
+        //[Required]
+        //[StringLength(30)]
+        //public string Prezime { get; set; }
+
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 8)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

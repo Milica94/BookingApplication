@@ -12,18 +12,44 @@ using BookingApp.Models;
 
 namespace BookingApp.Controllers
 {
+    [RoutePrefix("place")]
+
     public class PlacesController : ApiController
     {
         private DBContext db = new DBContext();
 
+        #region CreatePlace
+        // POST: api/Places
+        [HttpPost]
+        [Route("AddPlace")]
+        public IHttpActionResult PostPlace(Place place)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            db.Places.Add(place);
+            db.SaveChanges();
+
+            return Ok();
+            // return CreatedAtRoute("DefaultApi", new { id = place.PlaceId }, place);
+        }
+        #endregion
+
+        #region ReadAllPlaces
         // GET: api/Places
+        [HttpGet]
+        [Route("AllPlaces")]
         public IQueryable<Place> GetPlaces()
         {
             return db.Places;
         }
+        #endregion
 
-        // GET: api/Places/5
-        [ResponseType(typeof(Place))]
+        #region ReadOnePlace
+        [HttpGet]
+        [Route("GetPlace/{id}")]
         public IHttpActionResult GetPlace(int id)
         {
             Place place = db.Places.Find(id);
@@ -34,9 +60,11 @@ namespace BookingApp.Controllers
 
             return Ok(place);
         }
+#endregion
 
-        // PUT: api/Places/5
-        [ResponseType(typeof(void))]
+        #region UpdatePlace
+        [HttpPut]
+        [Route("ChangePlace/{id}")]
         public IHttpActionResult PutPlace(int id, Place place)
         {
             if (!ModelState.IsValid)
@@ -69,24 +97,12 @@ namespace BookingApp.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-
-        // POST: api/Places
-        [ResponseType(typeof(Place))]
-        public IHttpActionResult PostPlace(Place place)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Places.Add(place);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = place.PlaceId }, place);
-        }
-
+#endregion
+        
+        #region DeletePlace
         // DELETE: api/Places/5
-        [ResponseType(typeof(Place))]
+        [HttpDelete]
+        [Route("DeletePlace/{id}")]
         public IHttpActionResult DeletePlace(int id)
         {
             Place place = db.Places.Find(id);
@@ -100,7 +116,7 @@ namespace BookingApp.Controllers
 
             return Ok(place);
         }
-
+#endregion
         protected override void Dispose(bool disposing)
         {
             if (disposing)

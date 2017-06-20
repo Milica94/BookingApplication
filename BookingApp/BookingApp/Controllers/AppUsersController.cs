@@ -12,18 +12,21 @@ using BookingApp.Models;
 
 namespace BookingApp.Controllers
 {
+    [RoutePrefix("api/User")]
     public class AppUsersController : ApiController
     {
         private DBContext db = new DBContext();
 
+        [HttpGet]
+        [Route("ReadAll")]
         // GET: api/AppUsers
         public IQueryable<AppUser> GetAppUsers()
         {
             return db.AppUsers;
         }
 
-        // GET: api/AppUsers/5
-        [ResponseType(typeof(AppUser))]
+        [HttpGet]
+        [Route("Read/{id}")]
         public IHttpActionResult GetAppUser(int id)
         {
             AppUser appUser = db.AppUsers.Find(id);
@@ -35,8 +38,9 @@ namespace BookingApp.Controllers
             return Ok(appUser);
         }
 
-        // PUT: api/AppUsers/5
-        [ResponseType(typeof(void))]
+        [HttpPut]
+        [Route("Change/{id}")]
+
         public IHttpActionResult PutAppUser(int id, AppUser appUser)
         {
             if (!ModelState.IsValid)
@@ -70,22 +74,31 @@ namespace BookingApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/AppUsers
+        [HttpPost]
+        [Route("Create")]
         [ResponseType(typeof(AppUser))]
-        public IHttpActionResult PostAppUser(AppUser appUser)
+        public IHttpActionResult Create(AppUser appUser)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.AppUsers.Add(appUser);
-            db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = appUser.Id }, appUser);
+            try
+            {
+                db.AppUsers.Add(appUser);
+                db.SaveChanges();
+            }
+            catch (DbUpdateException e)
+            {
+                return Content(HttpStatusCode.Conflict, appUser);
+            }
+            return Ok();
         }
 
-        // DELETE: api/AppUsers/5
+        [HttpDelete]
+        [Route("Delete/{id}")]
         [ResponseType(typeof(AppUser))]
         public IHttpActionResult DeleteAppUser(int id)
         {

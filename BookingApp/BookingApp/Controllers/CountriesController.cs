@@ -9,21 +9,56 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using BookingApp.Models;
+using System.Web.Http.Results;
 
 namespace BookingApp.Controllers
 {
+    [RoutePrefix("country")]
+
     public class CountriesController : ApiController
     {
         private DBContext db = new DBContext();
 
+
+        #region CreateCoutry
+        // POST: api/Countries
+        [HttpPost]
+        [Route("AddCountry")]
+        public IHttpActionResult PostCountry(Country country)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                db.Countries.Add(country);
+                db.SaveChanges();
+            }
+            catch (DbUpdateException e)
+            {
+                return new ResponseMessageResult(Request.CreateErrorResponse((HttpStatusCode)409,
+                                                            new HttpError("Country already exists.")
+                ));
+            }
+
+            return Ok();
+        }
+        #endregion
+
+        #region ReadAllCountries
+        [HttpGet]
+        [Route("AllCountries")]
         // GET: api/Countries
         public IQueryable<Country> GetCountries()
         {
             return db.Countries;
         }
+        #endregion
 
-        // GET: api/Countries/5
-        [ResponseType(typeof(Country))]
+        #region ReadCountry
+        [HttpGet]
+        [Route("GetCountry/{id}")]
         public IHttpActionResult GetCountry(int id)
         {
             Country country = db.Countries.Find(id);
@@ -34,10 +69,12 @@ namespace BookingApp.Controllers
 
             return Ok(country);
         }
+        #endregion
 
-        // PUT: api/Countries/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutCountry(int id, Country country)
+        #region UpdateCountry
+        [HttpGet]
+        [Route("ChangeCountry/{id}")]
+        public IHttpActionResult ChangeCountry(int id, Country country)
         {
             if (!ModelState.IsValid)
             {
@@ -70,23 +107,12 @@ namespace BookingApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Countries
-        [ResponseType(typeof(Country))]
-        public IHttpActionResult PostCountry(Country country)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+#endregion
 
-            db.Countries.Add(country);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = country.CountryId }, country);
-        }
-
+        #region DeleteCountry
         // DELETE: api/Countries/5
-        [ResponseType(typeof(Country))]
+        [HttpDelete]
+        [Route("DeleteCountry/{id}")]
         public IHttpActionResult DeleteCountry(int id)
         {
             Country country = db.Countries.Find(id);
@@ -100,6 +126,9 @@ namespace BookingApp.Controllers
 
             return Ok(country);
         }
+#endregion
+
+
 
         protected override void Dispose(bool disposing)
         {
